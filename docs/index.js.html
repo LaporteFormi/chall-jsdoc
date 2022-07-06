@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState } from "react";
+
+/**
+ * @namespace useCar
+ * @param {number} defaultFMStation
+ * @param {number} startingWheelPosition - the degree of the position of the wheels at start
+ * @returns {object}
+ */
+const useCar = (defaultFMStation = 101.4, startingWheelPosition = 0) => {
+  const [turnedOn, setTurnedOn] = useState(false);
+  const [autoPilot, setAutoPilot] = useState(false);
+  const [wheelPosition, setWheelPosition] = useState(startingWheelPosition);
+  const [currentSpeed, setCurrentSpeed] = useState(0);
+  const [fuelDoorOpen, setFuelDoorOpen] = useState(false);
+  const [FMStation, setFMStation] = useState(defaultFMStation);
+
+  const turnOn = () => {
+    if (!turnedOn) {
+      setCurrentSpeed(0);
+      setTurnedOn(true);
+    }
+  };
+  /**
+   * turning off the car
+   */
+  const turnOff = () => {
+    if (turnedOn) {
+      setCurrentSpeed(0);
+      setTurnedOn(false);
+    }
+  };
+
+  /**
+   *
+   * @param {string} direction
+   * @param {number} rotationDegree
+   */
+  const turnWheel = (direction, rotationDegree) => {
+    let res;
+    switch (direction) {
+      case "left":
+        res = wheelPosition - rotationDegree;
+        if (res &lt; 0) wheelPosition = 360 - wheelPosition - res;
+        break;
+      case "right":
+        break;
+      default:
+        break;
+    }
+    console.log(
+      `you turned in the ${direction} direction at a ${rotationDegree} degree`
+    );
+  };
+
+  /**
+   * turns the light :
+   * 0 turn the lights off
+   * 1 turn them on with low intensity
+   * 2 turn them on with high intensity
+   * @param {number} intensity
+   */
+  const turnLights = (intensity) => {};
+
+  /**
+   * accelerate until the car reach the speedTreshold
+   * @param {number} speedTreshold
+   */
+  const accelerate = (speedTreshold) => {
+    console.log(
+      `you accelerated by pushing the pedal until you reached ${speedTreshold} km/h`
+    );
+    setCurrentSpeed(speedTreshold);
+  };
+
+  /**
+   * decelerate until the car reach the speedTreshold
+   * @param {decelerate} speedTreshold
+   */
+  const decelerate = (speedTreshold) => {
+    console.log(
+      `you decelerated pushing the pedal until you reached ${speedTreshold} km/h`
+    );
+    setCurrentSpeed(speedTreshold);
+  };
+
+  /**
+   *
+   * @returns {number} - The current speed of the car
+   */
+  const checkCurrentSpeed = () => {
+    return currentSpeed;
+  };
+
+  /**
+   * turn on the radio
+   */
+  const turnOnRadio = () => {
+    setFMStation(defaultFMStation);
+    console.log(`You're listening to ${FMStation}`);
+  };
+
+  /**
+   * turn off the radio
+   */
+  const turnOffRadio = () => {
+    console.log(`......`);
+  };
+
+  /**
+   * change the FM Radio station
+   * @param {number} FMStation - FMStation
+   */
+  const changeFMStation = (FMStation) => {
+    setFMStation(FMStation);
+  };
+
+  /**
+   * lock the fuel door
+   */
+  const lockFuelDoor = () => {
+    if (!fuelDoorOpen) setFuelDoorOpen(true);
+  };
+
+  /**
+   * unlock the fuel door
+   */
+  const unlockFuelDoor = () => {
+    if (fuelDoorOpen) setFuelDoorOpen(false);
+  };
+
+  /**
+   * adjust the left or right mirror depending on the parameter
+   * with the provided direction and rotation degree
+   * @param {string} side
+   * @param {string} direction
+   * @param {number} rotationDegree
+   */
+  const adjustRearviewerMirrors = (side, direction, rotationDegree) => {};
+
+  /**
+   * enables autopilot to go to the given destination
+   * @param {string} destination
+   */
+  const enableAutoPilot = (destination) => {
+    setAutoPilot(true);
+  };
+
+  /**
+   * disables autopilot but keep displaying the gps
+   */
+  const disableAutoPilot = () => {
+    setAutoPilot(false);
+  };
+
+  /**
+   * pair a bluetooth device to the vehicle
+   * @param {string} bluetoothID
+   */
+  const pairDeviceWithBluetooth = (bluetoothID) => {};
+
+  /**
+   * call given contact name of the paired device
+   * @param {string} contact
+   */
+  const callContact = (contact) => {};
+
+  const control = {
+    turnOn,
+    turnOff,
+    turnWheel,
+    turnLights,
+    accelerate,
+    decelerate,
+    checkCurrentSpeed,
+    turnOnRadio,
+    turnOffRadio,
+    changeFMStation,
+    playSong,
+    stopSong,
+    lockFuelDoor,
+    unlockFuelDoor,
+    adjustRearviewerMirrors,
+    enableAutoPilot,
+    disableAutoPilot,
+    connectDeviceWithBluetooth,
+    callContact,
+  };
+
+  return { control };
+};
+
+export default useCar;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="useCar.html">useCar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Jul 06 2022 15:42:54 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
